@@ -1,5 +1,5 @@
 # pyrankvote-senate
-close implementation of [STV rules used in CMU stugov 2026 election](https://drive.google.com/file/d/1IEl8sQ5ONBF9ArDgcgahDJ09UuF2k2EP/view), adapted from [pyrankvote](https://github.com/jontingvold/pyrankvote/tree/390600133d02bbc1b3592825b122eecff536d1d8)
+close implementation of [STV rules used in CMU stugov 2026 election](https://drive.google.com/file/d/1IEl8sQ5ONBF9ArDgcgahDJ09UuF2k2EP/view), adapted from [pyrankvote](https://github.com/jontingvold/pyrankvote/blob/master/pyrankvote/multiple_seat_ranking_methods.py)
 
 ## issues: 
 - vii.2 is not implemented, but it's probably okay since fractional vote redistribution resulting in a tie when candidates were not previously tied seems unlikely;
@@ -12,5 +12,3 @@ close implementation of [STV rules used in CMU stugov 2026 election](https://dri
 - remove vii.2 since it is atypical of STV and gives extra voting power to people who voted for more popular candidates 
 - Use the exact [Droop Quota](https://en.wikipedia.org/wiki/Droop_quota) (total votes / (k + 1)) (change `votes_needed_to_win` in `multi_seat_ranking_senate.py`)
 - Do not allow "No Confidence" to be ranked at all because it creates a lot of complexity in the system and undefined behavior. It does not make sense for a candidate who received votes not to receive an open seat.
-
-These recommendations would allow you to use the normal [`single_transferable_vote`](https://github.com/jontingvold/pyrankvote/blob/master/pyrankvote/multiple_seat_ranking_methods.py) configuration in `pyrankvote` instead of the version in `multi_seat_ranking_senate.py`. (vii.3-4 are implemented in `compare_method_if_equal=CompareMethodIfEqual.MostSecondChoiceVotes`)
