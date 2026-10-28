@@ -10,5 +10,6 @@ close implementation of [STV rules used in CMU stugov 2026 election](https://dri
 
 ## Recommendations for changes to the policy:
 - remove vii.2 since it is atypical of STV and gives extra voting power to people who voted for more popular candidates 
-- Use the exact [Droop Quota](https://en.wikipedia.org/wiki/Droop_quota) (total votes / (k + 1)) (change `votes_needed_to_win` in `multi_seat_ranking_senate.py`)
+- Use the exact [Droop Quota](https://en.wikipedia.org/wiki/Droop_quota) (total votes / (k + 1)) since fractional vote transfer is supported
+  - (change `votes_needed_to_win` in `multi_seat_ranking_senate.py`)
 - Do not allow "No Confidence" to be ranked at all because it creates a lot of complexity in the system and undefined behavior. It does not make sense for a candidate who received votes not to receive an open seat.
