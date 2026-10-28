@@ -16,7 +16,7 @@ def single_transferable_vote(
     candidates: List[Candidate],
     ballots: List[Ballot],
     number_of_seats: int,
-    compare_method_if_equal=CompareMethodIfEqual.MostSecondChoiceVotes,
+    compare_method_if_equal=CompareMethodIfEqual.MostSecondChoiceVotes, #(vii.3-4)
     pick_random_if_blank=False,
 ) -> ElectionResults:
     """
@@ -30,9 +30,9 @@ def single_transferable_vote(
 
         droop_quota = votes/(seats+1)
 
-    If one candidate get more votes than the threshold the excess votes are transfered to voters that voted for this
-    candidate's 2nd (or 3rd, 4th etc) alternative. If no candidate get over the threshold, the candidate with fewest votes
-    are removed. Votes for this candidate is then transfered to voters 2nd (or 3rd, 4th etc) alternative.
+    If one candidate get more votes than the threshold the excess votes are transferred to voters that voted for this
+    candidate's 2nd (or 3rd, 4th etc.) alternative. If no candidate gets over the threshold, the candidate with the fewest votes
+    are removed. Votes for this candidate is then transferred to voters 2nd (or 3rd, 4th etc.) alternative.
 
     For more info see Wikipedia.
     """
@@ -48,10 +48,10 @@ def single_transferable_vote(
     )
     election_results = ElectionResults()
 
-    voters, seats = manager.get_number_of_non_exhausted_ballots(), number_of_seats
-    votes_needed_to_win: float = voters / float((seats + 1)) + 1   # Droop quota
+    # voters, seats = manager.get_number_of_non_exhausted_ballots(), number_of_seats
+    # votes_needed_to_win: float = voters / float((seats + 1)) + 1   # Droop quota
 
-    # Remove worst candidate until same number of candidates left as electable
+    # Remove the worst candidate until same number of candidates left as electable
     # While it is more candidates left than electable
     NC_votes = 0
 
@@ -81,7 +81,7 @@ def single_transferable_vote(
             if (votes_for_candidate - rounding_error) >= votes_needed_to_win:
                 candidates_to_elect.append(candidate)
 
-            # Reject candidates that even with redistribution can't change the results
+            # Reject candidates that even with redistribution can't change the results (vii.1)
             elif i >= seats_left and (votes_remaining - rounding_error) <= last_votes:
                 if len(candidates_to_elect) > 0:
                     # Don't reject candidates if there are elected candidates that have not yet
@@ -126,7 +126,7 @@ def single_transferable_vote(
             break
 
         else:
-            # For voters who votes for elected candidates,
+            # For voters who vote for elected candidates,
             # transfer excess votes to 2nd choice (or 3rd, 4th etc.)
             for candidate in candidates_to_elect:
                 votes_for_candidate = manager.get_number_of_votes(candidate)
@@ -134,7 +134,7 @@ def single_transferable_vote(
                 print(candidate,excess_votes)
                 manager.transfer_votes(candidate, excess_votes)
 
-            # For votes who votes on rejected candidates,
+            # For votes who voted for rejected candidates,
             # transfer all votes to 2nd choice (or 3rd, 4th etc.)
             for candidate in candidates_to_reject:
                 votes_for_candidate = manager.get_number_of_votes(candidate)
