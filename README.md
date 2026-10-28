@@ -13,4 +13,4 @@ close implementation of [STV rules used in CMU stugov 2026 election](https://dri
 - Use the exact [Droop Quota](https://en.wikipedia.org/wiki/Droop_quota) (total votes / (k + 1)) (change `votes_needed_to_win` in `multi_seat_ranking_senate.py`)
 - Do not allow "No Confidence" to be ranked at all because it creates a lot of complexity in the system and undefined behavior. It does not make sense for a candidate who received votes not to receive an open seat.
 
-If passed, these recommendations would allow you to use the normal election configuration in `pyrankvote`
+These recommendations would allow you to use the normal [`single_transferable_vote`](https://github.com/jontingvold/pyrankvote/blob/master/pyrankvote/multiple_seat_ranking_methods.py) configuration in `pyrankvote` instead of the version in `multi_seat_ranking_senate.py`. (vii.3-4 are implemented in `compare_method_if_equal=CompareMethodIfEqual.MostSecondChoiceVotes`)
